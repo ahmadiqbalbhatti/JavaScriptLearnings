@@ -27,7 +27,7 @@ var user = "2";
 
 // in this case: using three equal tos, we force js to strictly check if it is really equal to number 2 or not
 // in simple word triple equal is used to check whether it is equal or not and also it checks the type of the variable
-if (2 === user){
+if (2 === user) {
     console.log("Condition is True");
 }
 

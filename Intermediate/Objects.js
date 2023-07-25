@@ -1,7 +1,7 @@
 var user = {
     firstName: "Ahmad",
     lastName: "Iqbal Bhatti",
-    role : "Admin",
+    role: "Admin",
     age: 21,
     facebookSignedIn: true
 };

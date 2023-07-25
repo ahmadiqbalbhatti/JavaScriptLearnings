@@ -9,10 +9,10 @@ var user = {
         this.courseList.push(courseName);
 
     },
-    getCourseCount: function (){
+    getCourseCount: function () {
         return `${this.firstName} is enrolled in total of ${this.courseList.length} courses`
     },
-    userInfo: function (){
+    userInfo: function () {
         console.log(`First Name = ${this.firstName}`);
         console.log(`Last Name = ${this.lastName}`);
         console.log(`User Role = ${this.role}`);

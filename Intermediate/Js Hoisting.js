@@ -26,7 +26,7 @@
 
 tipper("80")
 
-function tipper(a){
+function tipper(a) {
     var bill = parseInt(a);
 
     console.log(bill + 5);

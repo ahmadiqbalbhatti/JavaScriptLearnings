@@ -1,0 +1,34 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.align-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    margin: 0.1rem;
+    background-color: #8b78e6;
+    border-radius: 1rem;
+    color: white;
+}
+
+.align-container:hover{
+    background-color: #ffd1d1;
+    color: #8b78e6;
+}
+
+li {
+    list-style: none;
+}
+
+.align-container .checkbox{
+    color: #bb2cd9;
+    border-radius: 5px;
+    background-color: #bb2cd9;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+

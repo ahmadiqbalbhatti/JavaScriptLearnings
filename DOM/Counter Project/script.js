@@ -15,7 +15,7 @@ setInterval(() => {
 }, 1);
 
 
-setTimeout(()=>{
+setTimeout(() => {
     followers.innerHTML = "followers in Instagram";
 }, 4000)
 
