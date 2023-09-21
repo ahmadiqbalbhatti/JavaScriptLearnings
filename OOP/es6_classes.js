@@ -14,7 +14,6 @@ class PersonCl {
     }
 
     set fullName(name){
-        console.log(name)
         if (name.includes(" ")){
             this._fullName = name;
         } else {
@@ -29,17 +28,17 @@ class PersonCl {
         console.log("Hello here! " + myLove + ".")
     }
 }
-
-PersonCl.hey("Eman");
-
-const ahmad = new PersonCl('Ahmad', 2001);
-
-// console.log(ahmad.fullName)
-ahmad.calcAge();
-console.log(ahmad.age)
-
-ahmad.fullName = "Ahmad Iqbal Bhatti";
-console.log(ahmad.fullName)
+//
+// PersonCl.hey("Eman");
+//
+// const ahmad = new PersonCl('Ahmad', 2001);
+//
+// // console.log(ahmad.fullName)
+// ahmad.calcAge();
+// // console.log(ahmad.age)
+//
+// ahmad.fullName = "Ahmad Iqbal Bhatti";
+// // console.log(ahmad.fullName)
 
 // const account = {
 //     owner: 'Ahmad',
@@ -55,3 +54,5 @@ console.log(ahmad.fullName)
 // }
 // account.latest = 234;
 // console.log(account.latest)
+
+module.exports = {PersonCl}
