@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #f2f1ff;
+    font-family: "Montserrat", sans-serif;
+}
+
+button, input, select{
+    outline: none;
+    border: none;
+}
+
+.box{
+    padding: 3rem;
+    border: .5px solid #dedede;
+    background-color: #ffff;
+    border-radius: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.button, .selectInput, .input{
+    width: 100%;
+    margin-bottom: .2rem;
+    border: 1.5px solid #1043f0;
+    color: #bbbbbb;
+    padding: .8rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    column-gap: .5rem;
+    border-radius: .3rem;
+    font-weight: 300;
+    font-size: .8rem;
+}
+
+.button, .submit{
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.submit{
+    background-color: #1043f0;
+    color: #fff;
+    margin-block: 1rem;
+}
+
+.submit:hover{
+    background-color: #1136af;
+    transition: .4s;
+}
+
+.button{
+    background-color: #FF0032;
+}
+
+.button:hover{
+    background-color: #CD0404;
+    transition: .4s;
+    color: #fff;
+}
+
+.title, #main, label{
+    color: #010101;
+}
+
+label{
+    margin-bottom: .3rem;
+    font-size: .75rem;
+}
+
+.title{
+    padding-bottom: 1rem;
+}
+
+#main{
+    padding-top: 1.5rem;
+    opacity: .65;
+}
+
+td{
+    padding-right: 1rem ;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.deleteBtn{
+    cursor: pointer;
+    width: 100%;
+    margin-block: 1rem;
+    background-color: #ff0033;
+    color: #fff;
+    padding: .8rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    column-gap: .5rem;
+    border-radius: .6rem;
+}
+
+.deleteBtn:hover{
+    background-color: #ff1d4ace;
+    transition: .4s ease all;
+}

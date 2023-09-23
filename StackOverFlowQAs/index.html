@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/telephone.png" />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Phone book</title>
+</head>
+<body>
+<div class="box">
+    <h2 class="title">Új telefonszám felvitele</h2>
+    <div id="new">
+        <form onsubmit="newNumber()">
+            <label for="name">Név</label>
+            <input id="name" type="text" name="name" placeholder="Név" class="input" />
+
+            <label for="phoneNumber">Telefonszám</label>
+            <input
+                    id="phoneNumber"
+                    type="number"
+                    name="phoneNumber"
+                    placeholder="Telefonszám"
+                    class="input"
+            />
+            <label for="email">Email</label>
+            <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="Email cím"
+                    class="input"
+            />
+            <input type="submit" value="Mentés" class="input submit" />
+        </form>
+    </div>
+
+    <h2 class="title">Telefonkönyv</h2>
+    <table>
+        <tr>
+            <td class="title">Név</td>
+            <td class="title">Telefonszám</td>
+            <td class="title">Email</td>
+            <td class="title">Törlés</td>
+        </tr>
+    </table>
+    <hr />
+    <div id="main"></div>
+</div>
+
+<!--<script src="data.js"></script>-->
+<script src="main.js"></script>
+</body>
+</html>
