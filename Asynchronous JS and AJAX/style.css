@@ -30,6 +30,7 @@ body {
     /* margin-bottom: 8rem; */
     display: flex;
 
+    flex-flow: row;
     font-size: 2rem;
     opacity: 0;
     transition: opacity 1s;
