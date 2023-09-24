@@ -5,6 +5,8 @@ const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
 //
+
+
 const renderCountry = (data, className = "") => {
     let languages = '';
     let currency = '';
@@ -39,8 +41,14 @@ const renderCountry = (data, className = "") => {
 
 
     countriesContainer.insertAdjacentHTML('beforeend', html);
-    countriesContainer.style.opacity = 1;
+    // countriesContainer.style.opacity = 1;
 }
+
+const renderErrorMessage = function (msg){
+    countriesContainer.insertAdjacentText('beforeend', msg);
+    // countriesContainer.style.opacity = 1;
+}
+
 //
 // const getCountryAndNeighbour = (countryName) => {
 //
@@ -89,27 +97,84 @@ const renderCountry = (data, className = "") => {
 
 //////////////////////////////////////////////////////////////////////////
 
-const request = fetch(`https://restcountries.com/v3.1/name/pakistan`);
-console.log(request)
 
+//
+// const getCountryData = (countryName) => {
+//     fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+//         .then((response) =>{
+//             console.log(response)
+//
+//             if (!response.ok){
+//                 throw new Error(`Country not Found ( ${response.status} )`)
+//             }
+//
+//             return  response.json();
+//         })
+//         .then((data) => {
+//             renderCountry(data)
+//             const neighbour = data[0].borders[0];
+//             if (!neighbour) return;
+//             return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
+//             // return fetch(`https://restcountries.com/v3.1/alpha/asdf`)
+//
+//         })
+//         .then(response =>{
+//             console.log(response)
+//
+//             if (!response.ok){
+//                 throw new Error(`Border Country not Found ( ${response.status} )`)
+//             }
+//             return  response.json();
+//         })
+//         .then(data => renderCountry(data, "neighbour"))
+//         .catch(err => {
+//             console.log(`${err}`)
+//             renderErrorMessage("Something went wrong " + err)
+//         })
+//         .finally(()=>{ // Finally is used on promises return
+//             countriesContainer.style.opacity = 1;
+//         })
+// }
+//
+
+
+// Reusable fetch function with error handling
+const fetchData = (url) => {
+    // Use return to return the json response from channing.
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`${response.status} - ${response.statusText}`);
+            }
+            return response.json();
+        });
+};
+
+// Error handling function
+const handleError = (error) => {
+    console.error(error);
+    renderErrorMessage("Something went wrong: " + error.message);
+};
 
 const getCountryData = (countryName) => {
-    fetch(`https://restcountries.com/v3.1/name/${countryName}`)
-        .then((response) => response.json())
+    fetchData(`https://restcountries.com/v3.1/name/${countryName}`)
         .then((data) => {
-            console.log(data)
-            renderCountry(data)
+            renderCountry(data);
             const neighbour = data[0].borders[0];
-            // console.log(neighbour)
-
             if (!neighbour) return;
-            return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
-
+            return fetchData(`https://restcountries.com/v3.1/alpha/${neighbour}`);
         })
-        .then(response => response.json())
-        .then(data => {
-            renderCountry(data, "neighbour")
+        .then((neighbourData) => {
+            renderCountry(neighbourData, "neighbour");
         })
-}
+        .catch(handleError)
+        .finally(() => {
+            countriesContainer.style.opacity = 1;
+        });
+};
 
-getCountryData('pakistan')
+
+
+btn.addEventListener('click', function () {
+    getCountryData('pakistan')
+})
