@@ -44,6 +44,9 @@ const renderCountry = (data, className = "") => {
     // countriesContainer.style.opacity = 1;
 }
 
+export {renderCountry};
+
+
 const renderErrorMessage = function (msg){
     countriesContainer.insertAdjacentText('beforeend', msg);
     // countriesContainer.style.opacity = 1;
