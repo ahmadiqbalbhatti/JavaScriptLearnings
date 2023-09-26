@@ -350,10 +350,10 @@ const whereAmI = async function () {
 
 
 // the function "whereAmI", is a promise returning function, but this method seems confusing because it is mixing async and promises.
-whereAmI()
-    .then(city => console.log(`2: ${city}`))
-    .catch(err => console.log(`2: ${err.message}`))
-    .finally(() => console.log('3: Finishing getting location'));
+// whereAmI()
+//     .then(city => console.log(`2: ${city}`))
+//     .catch(err => console.log(`2: ${err.message}`))
+//     .finally(() => console.log('3: Finishing getting location'));
 
 // try {
 //     let y = 1;
@@ -362,3 +362,33 @@ whereAmI()
 // }catch (err){
 //     alert(err.message)
 // }
+
+
+const get3Countries = async function(countryOne, countryTwo, countryThree){
+    try {
+
+        // One by one execution
+        // const dataOne = await fetchData(`https://restcountries.com/v3.1/name/${countryOne}`)
+        // const dataTwo = await fetchData(`https://restcountries.com/v3.1/name/${countryTwo}`)
+        // const dataThree = await fetchData(`https://restcountries.com/v3.1/name/${countryThree}`)
+
+
+        // Parallel Execution
+        const data = await Promise.all([
+            fetchData(`https://restcountries.com/v3.1/name/${countryOne}`),
+            fetchData(`https://restcountries.com/v3.1/name/${countryTwo}`),
+            fetchData(`https://restcountries.com/v3.1/name/${countryThree}`)
+        ])
+
+        console.log(data.map(d => d[0].capital[0]))
+        // console.log(data)
+
+        // console.log([dataOne[0].capital[0], dataTwo[0].capital[0], dataThree[0].capital[0]])
+    } catch (error){
+        console.error(error.message);
+    }
+
+
+}
+
+get3Countries('pakistan', 'canada', 'tanzania')
