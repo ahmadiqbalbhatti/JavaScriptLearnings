@@ -396,12 +396,8 @@ const whereAmI = async function () {
 // get3Countries('pakistan', 'canada', 'tanzania')
 
 // Promise.race
-const promiseRace = async function(){
-    const [response] = await Promise.race([
-        fetchData(`https://restcountries.com/v3.1/name/mexico`),
-        fetchData(`https://restcountries.com/v3.1/name/italy`),
-        fetchData(`https://restcountries.com/v3.1/name/egypt`)
-    ])
+const promiseRace = async function () {
+    const [response] = await Promise.race([fetchData(`https://restcountries.com/v3.1/name/mexico`), fetchData(`https://restcountries.com/v3.1/name/italy`), fetchData(`https://restcountries.com/v3.1/name/egypt`)])
 
     console.log(response.capital[0])
 
@@ -409,9 +405,9 @@ const promiseRace = async function(){
 
 // promiseRace();
 
-const timeOut = function (s){
-    return new Promise(function (_, reject){
-        setTimeout(()=>{
+const timeOut = function (s) {
+    return new Promise(function (_, reject) {
+        setTimeout(() => {
             reject(new Error(`Request took too long!`))
         }, s)
     })
@@ -427,5 +423,19 @@ const timeOut = function (s){
 // .then(err =>{
 //     console.error(err)
 // })
+
+
+// Promise.allSettled = every request will be requested and promise will wait fot all requests to be complete even success or failed or error
+Promise.allSettled([
+    fetchData(`https://restcountries.com/v3.1/name/pakistan`),
+    fetchData(`https://restcountries.com/v3.1/name/italy`),
+    fetchData(`https://restcountries.com/v3.1/name/mexico`)
+])
+    .then(response => {
+        console.log(response)
+    })
+    .then(err => {
+        console.log(err)
+    })
 
 
