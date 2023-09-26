@@ -44,10 +44,10 @@ const renderCountry = (data, className = "") => {
     // countriesContainer.style.opacity = 1;
 }
 
-export {renderCountry};
+// export {renderCountry};
 
 
-const renderErrorMessage = function (msg){
+const renderErrorMessage = function (msg) {
     countriesContainer.insertAdjacentText('beforeend', msg);
     // countriesContainer.style.opacity = 1;
 }
@@ -177,7 +177,188 @@ const getCountryData = (countryName) => {
 };
 
 
-
 btn.addEventListener('click', function () {
     getCountryData('pakistan')
 })
+
+//
+// console.log('Test Start for Runtime Browser');
+//
+// setTimeout(()=>{
+//     console.log("0 sec timer")
+// }, 0)
+//
+//
+// Promise.resolve('Resolved Promise 1').then(res => console.log(res));
+//
+//
+// Promise.resolve("Resolved promise 2"   ).then(res => {
+//     for (let i = 0; i < 5000; i++) {
+//         console.log(res)
+//     }
+// });
+// console.log('Test End for Runtime Browser');
+
+//
+// const lotteryPromise = new Promise(function (resolve, reject){
+//
+//     console.log('Lotter Draw is Happening');
+//
+//     setTimeout(function (){
+//         if (Math.random() >= 0.5){
+//             resolve("You Win $$$");
+//         }
+//         else{
+//             reject("You Lost you money $$");
+//         }
+//     }, 2000)
+//
+// });
+
+
+//  Promisifying setTime Ou
+// const wait = function (seconds) {
+//     return new Promise(function (resolve, reject){
+//         setTimeout(resolve, seconds * 100);
+//     })
+// }
+//
+// wait(2).then(() =>{
+//     console.log('I waited for 2 Sections')
+//     return wait(1);
+// })
+//     .then(()=> console.log('I waited for 1 Second'));
+//
+// lotteryPromise.then(res => console.log(res)).catch(error => console.error(error));
+//
+//
+// Promise.resolve('abc').then(x => console.log(x));
+// Promise.reject('abc').catch(x => console.error(x))
+
+
+// navigator.geolocation.getCurrentPosition(position => console.log(position)), err => console.log(err)
+
+const getPosition = function () {
+    return new Promise(function (resolve, reject) {
+        // navigator.geolocation.getCurrentPosition(
+        //     position => resolve(position)),
+        //     err => reject(err)
+
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+    })
+}
+
+// const whereAmI = function (){
+//     return fetch(`https://geocode.xyz/32,12?geoit=json&auth=96197725910685815644x47362`)
+//         .then(res => {
+//             if (!res.ok){
+//                 throw new Error(`Problem with geocoding ${res.status}`)
+//             }
+//             return res.json();
+//         })
+//         .then(data =>{
+//             console.log(`You are in ${data.standard.city}, ${ data.standard.region}`)
+//         })
+//         .catch(handleError)
+// }
+//
+// console.log(whereAmI())
+
+//
+// const whereAmI = () => {
+//     let lat, lng;
+//     getPosition().then(pos => {
+//         const {latitude: lat, longitude:lng} = pos.coords;
+//     })
+//
+//
+//     return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=96197725910685815644x47362`, )
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error(`${response.st} - ${response.state}`)
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             console.log(`You are in ${data.region}.`)
+//             console.log(`You are in ${data.country}.`)
+//             return fetch(`https://restcountries.com/v3.1/name/${data.country}`)
+//         })
+//         .then(data  => {
+//             renderCountry(data)
+//         })
+//         .catch(handleError)
+// }
+//
+//
+// // whereAmI();
+// btn.addEventListener('click', whereAmI.bind(this))
+
+
+// Async and Await way of using promises is easier than all the abvoe.
+
+const whereAmI = async function () {
+    try {
+        // console.log(getPosition())
+        const pos = await getPosition();
+        const {latitude: lat, longitude: lng} = pos.coords;
+
+
+        const responseGeo = await fetch(`https://geocode.xyz/${lat},${lng}?geoit=json&auth=96197725910685815644x47362`);
+        if (!responseGeo.ok) throw new Error("Problem getting location data");
+
+        const dataGeo = await responseGeo.json();
+
+        console.log(dataGeo.country)
+
+        const response = await fetch(`https://restcountries.com/v3.1/name/${dataGeo.country}`)
+        // const response = await fetch(`https://restcountries.com/v3.1/name/asdf`)
+        if (!response.ok) throw new Error("Problem getting country data");
+
+        const data = await response.json();
+
+        renderCountry(data)
+        countriesContainer.style.opacity = 1;
+
+        return `You are in ${dataGeo.city}, ${dataGeo.country}`;
+
+    } catch (err) {
+        // console.log(err.message)
+        renderErrorMessage(err.message)
+
+        // Reject Promise returned from Async function
+        throw err; // rethrowing error
+    }
+
+}
+
+// (async () => {
+//     try {
+//         const city = await whereAmI();
+//         console.log(`2: ${city}`)
+//     } catch (err) {
+//
+//         console.log('3: Finishing getting location')
+//     }
+//     console.log('3: Finishing getting location')
+// })();
+//
+// console.log('1: will get location')
+
+// const city = whereAmI();
+// console.log(city)
+
+
+// the function "whereAmI", is a promise returning function, but this method seems confusing because it is mixing async and promises.
+whereAmI()
+    .then(city => console.log(`2: ${city}`))
+    .catch(err => console.log(`2: ${err.message}`))
+    .finally(() => console.log('3: Finishing getting location'));
+
+// try {
+//     let y = 1;
+//     const x = 2;
+//     x=3;
+// }catch (err){
+//     alert(err.message)
+// }
