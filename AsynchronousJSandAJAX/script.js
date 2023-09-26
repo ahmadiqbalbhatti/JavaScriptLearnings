@@ -364,31 +364,68 @@ const whereAmI = async function () {
 // }
 
 
-const get3Countries = async function(countryOne, countryTwo, countryThree){
-    try {
+// // Promise.all
+//
+// const get3Countries = async function(countryOne, countryTwo, countryThree){
+//     try {
+//
+//         // One by one execution
+//         // const dataOne = await fetchData(`https://restcountries.com/v3.1/name/${countryOne}`)
+//         // const dataTwo = await fetchData(`https://restcountries.com/v3.1/name/${countryTwo}`)
+//         // const dataThree = await fetchData(`https://restcountries.com/v3.1/name/${countryThree}`)
+//
+//
+//         // Parallel Execution
+//         const data = await Promise.all([
+//             fetchData(`https://restcountries.com/v3.1/name/${countryOne}`),
+//             fetchData(`https://restcountries.com/v3.1/name/${countryTwo}`),
+//             fetchData(`https://restcountries.com/v3.1/name/${countryThree}`)
+//         ])
+//
+//         console.log(data.map(d => d[0].capital[0]))
+//         // console.log(data)
+//
+//         // console.log([dataOne[0].capital[0], dataTwo[0].capital[0], dataThree[0].capital[0]])
+//     } catch (error){
+//         console.error(error.message);
+//     }
+//
+//
+// }
+//
+// get3Countries('pakistan', 'canada', 'tanzania')
 
-        // One by one execution
-        // const dataOne = await fetchData(`https://restcountries.com/v3.1/name/${countryOne}`)
-        // const dataTwo = await fetchData(`https://restcountries.com/v3.1/name/${countryTwo}`)
-        // const dataThree = await fetchData(`https://restcountries.com/v3.1/name/${countryThree}`)
+// Promise.race
+const promiseRace = async function(){
+    const [response] = await Promise.race([
+        fetchData(`https://restcountries.com/v3.1/name/mexico`),
+        fetchData(`https://restcountries.com/v3.1/name/italy`),
+        fetchData(`https://restcountries.com/v3.1/name/egypt`)
+    ])
 
-
-        // Parallel Execution
-        const data = await Promise.all([
-            fetchData(`https://restcountries.com/v3.1/name/${countryOne}`),
-            fetchData(`https://restcountries.com/v3.1/name/${countryTwo}`),
-            fetchData(`https://restcountries.com/v3.1/name/${countryThree}`)
-        ])
-
-        console.log(data.map(d => d[0].capital[0]))
-        // console.log(data)
-
-        // console.log([dataOne[0].capital[0], dataTwo[0].capital[0], dataThree[0].capital[0]])
-    } catch (error){
-        console.error(error.message);
-    }
-
+    console.log(response.capital[0])
 
 }
 
-get3Countries('pakistan', 'canada', 'tanzania')
+// promiseRace();
+
+const timeOut = function (s){
+    return new Promise(function (_, reject){
+        setTimeout(()=>{
+            reject(new Error(`Request took too long!`))
+        }, s)
+    })
+}
+//
+// Promise.race([
+//     fetchData(`https://restcountries.com/v3.1/name/pakistan`),
+//     timeOut(500)
+// ])
+// .then(response => {
+//     console.log(response[0])
+// })
+// .then(err =>{
+//     console.error(err)
+// })
+
+
