@@ -425,8 +425,21 @@ const timeOut = function (s) {
 // })
 
 
-// Promise.allSettled = every request will be requested and promise will wait fot all requests to be complete even success or failed or error
-Promise.allSettled([
+// // Promise.allSettled = every request will be requested and promise will wait fot all requests to be complete even success or failed or error
+// Promise.allSettled([
+//     fetchData(`https://restcountries.com/v3.1/name/pakistan`),
+//     fetchData(`https://restcountries.com/v3.1/name/italy`),
+//     fetchData(`https://restcountries.com/v3.1/name/mexico`)
+// ])
+//     .then(response => {
+//         console.log(response)
+//     })
+//     .then(err => {
+//         console.log(err)
+//     })
+
+
+Promise.any([
     fetchData(`https://restcountries.com/v3.1/name/pakistan`),
     fetchData(`https://restcountries.com/v3.1/name/italy`),
     fetchData(`https://restcountries.com/v3.1/name/mexico`)
@@ -437,5 +450,4 @@ Promise.allSettled([
     .then(err => {
         console.log(err)
     })
-
 
